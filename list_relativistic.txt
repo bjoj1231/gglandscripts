@@ -1,0 +1,4 @@
+1 gamma 0.1:10MeV isotropic 1500000 tree-gun-edep useless_name np
+2 gamma 0.1:10MeV isotropic 1500000 tree-gun-edep useless_name np
+3 gamma 0.1:10MeV isotropic 1500000 tree-gun-edep useless_name np
+4 gamma 0.1:10MeV isotropic 1500000 tree-gun-edep useless_name np
