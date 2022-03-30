@@ -18,7 +18,7 @@ do
     # 6: Number of crystal deposits stored. ggland has a default value of 10.
     # 7: np is a command for running processes parallel., used to speed up this process.
 
-    DATADIR1=~/data/xb_sim/root/
+    DATADIR1=./root/
 
     mkdir -p $DATADIR1
 
@@ -39,17 +39,15 @@ do
     # Substitutes gen_data_dunedep_XB.sh from the group in 2018.
     root -q -b 'root_make_class_and_gen_data_files_XB.C('\"${DATADIR1}mult${word[0]}ev${word[4]}cluster${word[6]}.root\"')'
     echo 'ROOT finished'
-    echo 'Removing h102.C and h102.h'
-    rm h102.C
-    rm h102.h
 
-    DATADIR=~/data/
+    
+   # DATADIR=~/data/
     # Moves the files to a folder we have in common. Might need to be changed for next year.
-    mkdir -p ${DATADIR}"${word[0]}"_"$mod_energy"_"${word[4]}"
-    echo 'Moving files to another directory in' ${DATADIR}
-    mv XB_gun_vals.txt ${DATADIR}"${word[0]}"_"$mod_energy"_"${word[4]}"
-    mv XB_sum_of_dep_energies.txt ${DATADIR}"${word[0]}"_"$mod_energy"_"${word[4]}"
-    mv XB_det_data.txt ${DATADIR}"${word[0]}"_"$mod_energy"_"${word[4]}"
+   # mkdir -p ${DATADIR}"${word[0]}"_"$mod_energy"_"${word[4]}"
+   # echo 'Moving files to another directory in' ${DATADIR}
+   # mv XB_gun_vals.txt ${DATADIR}"${word[0]}"_"$mod_energy"_"${word[4]}"
+   # mv XB_sum_of_dep_energies.txt ${DATADIR}"${word[0]}"_"$mod_energy"_"${word[4]}"
+   # mv XB_det_data.txt ${DATADIR}"${word[0]}"_"$mod_energy"_"${word[4]}"
 done < "$1"
 
 #wait
