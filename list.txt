@@ -1,1 +1,1 @@
-1 gamma 0.1:15MeV isotropic 10 tree-gun-edep 10 np
+1 gamma 0.1:15MeV isotropic 100 tree-gun-edep 10 np
