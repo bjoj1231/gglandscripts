@@ -12,6 +12,9 @@
 #include <TChain.h>
 #include <TFile.h>
 
+#define MAX_GUNS  10
+#define MAX_HITS  10000
+
 // Header file for the classes stored in the TTree if any.
 
 class convert_edep {
@@ -26,21 +29,21 @@ public :
    UInt_t          seed1;
    UInt_t          seed2;
    UInt_t          gunn;
-   Float_t         gunt[1];   //[gunn]
-   Float_t         gunx[1];   //[gunn]
-   Float_t         guny[1];   //[gunn]
-   Float_t         gunz[1];   //[gunn]
-   Float_t         gunpx[1];   //[gunn]
-   Float_t         gunpy[1];   //[gunn]
-   Float_t         gunpz[1];   //[gunn]
-   Float_t         gunT[1];   //[gunn]
-   Int_t           gunpdg[1];   //[gunn]
-   Float_t         gunedepXB[1];   //[gunn]
+   Float_t         gunt[MAX_GUNS];   //[gunn]
+   Float_t         gunx[MAX_GUNS];   //[gunn]
+   Float_t         guny[MAX_GUNS];   //[gunn]
+   Float_t         gunz[MAX_GUNS];   //[gunn]
+   Float_t         gunpx[MAX_GUNS];   //[gunn]
+   Float_t         gunpy[MAX_GUNS];   //[gunn]
+   Float_t         gunpz[MAX_GUNS];   //[gunn]
+   Float_t         gunT[MAX_GUNS];   //[gunn]
+   Int_t           gunpdg[MAX_GUNS];   //[gunn]
+   Float_t         gunedepXB[MAX_GUNS];   //[gunn]
    Float_t         XBsumE;
    UInt_t          XBn;
-   Float_t         XBt[10];   //[XBn]
-   Float_t         XBe[10];   //[XBn]
-   UInt_t          XBi[10];   //[XBn]
+   Float_t         XBt[MAX_HITS];   //[XBn]
+   Float_t         XBe[MAX_HITS];   //[XBn]
+   UInt_t          XBi[MAX_HITS];   //[XBn]
 
    // List of branches
    TBranch        *b_eventno;   //!
