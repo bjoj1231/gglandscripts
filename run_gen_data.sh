@@ -17,6 +17,8 @@
 #
 # The commands are not shown here, but the order is futher down.
 
+gglanddir=~/land02/scripts/ggland
+
 . geant4.sh      # Need to run this before using ggland
 while read line  # Run the following lines for each line in the given text file
 do
@@ -48,7 +50,11 @@ do
     done
     
     treeline='gunlist,'"${DATADIR1}mult${word[0]}ev${word[4]}cluster${word[6]}.root"
-    ~/land02/scripts/ggland/land_geant4 $gun_parse --events=${word[4]} --xb=${word[5]},tree-num-clusters=${word[6]} --tree=$treeline  --${word[7]}     # Start generation of data for current line in input file.
+    # Start generation of data for current line in input file.
+    $gglanddir/land_geant4 \
+	$gun_parse --events=${word[4]} \
+	--xb=${word[5]},tree-num-clusters=${word[6]} \
+	--tree=$treeline --${word[7]}
     
     # Replaces : with _, easier to navigate to directories without ":"
     # in the name, is interperted as a server otherwise.
