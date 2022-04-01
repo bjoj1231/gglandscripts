@@ -19,6 +19,9 @@
 
 gglanddir=~/land02/scripts/ggland
 
+# Compile the .root -> .txt converter
+g++ -o convert_edep convert_edep.C `root-config --cflags --glibs`
+
 . geant4.sh      # Need to run this before using ggland
 while read line  # Run the following lines for each line in the given text file
 do
@@ -62,8 +65,12 @@ do
     # in the name, is interperted as a server otherwise.
     mod_energy=${word[2]//:/_}
 
-    # Substitutes gen_data_dunedep_XB.sh from the group in 2018.
-    root -q -b 'root_make_class_and_gen_data_files_XB.C('\"$filenamebase.root\"')'
+    ## # Substitutes gen_data_dunedep_XB.sh from the group in 2018.
+    ## root -q -b 'root_make_class_and_gen_data_files_XB.C('\"$filenamebase.root\"')'
+
+    # Use the standalone ROOT conversion (.root -> .txt).
+    ./convert_edep $filenamebase.root
+
     echo 'ROOT finished'
 
     
