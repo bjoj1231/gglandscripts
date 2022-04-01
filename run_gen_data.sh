@@ -48,8 +48,10 @@ do
         # Actual concatention.
 	gun_parse="${gun_line}"' '"${gun_parse}"
     done
+
+    filenamebase=${DATADIR1}mult${word[0]}ev${word[4]}cluster${word[6]}
     
-    treeline='gunlist,'"${DATADIR1}mult${word[0]}ev${word[4]}cluster${word[6]}.root"
+    treeline='gunlist,'"$filenamebase.root"
     # Start generation of data for current line in input file.
     $gglanddir/land_geant4 \
 	$gun_parse --events=${word[4]} \
@@ -61,7 +63,7 @@ do
     mod_energy=${word[2]//:/_}
 
     # Substitutes gen_data_dunedep_XB.sh from the group in 2018.
-    root -q -b 'root_make_class_and_gen_data_files_XB.C('\"${DATADIR1}mult${word[0]}ev${word[4]}cluster${word[6]}.root\"')'
+    root -q -b 'root_make_class_and_gen_data_files_XB.C('\"$filenamebase.root\"')'
     echo 'ROOT finished'
 
     
