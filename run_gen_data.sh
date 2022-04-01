@@ -54,7 +54,7 @@ do
     $gglanddir/land_geant4 \
 	$gun_parse --events=${word[4]} \
 	--xb=${word[5]},tree-num-clusters=${word[6]} \
-	--tree=$treeline --${word[7]}
+	--tree=$treeline ${word[7]}
     
     # Replaces : with _, easier to navigate to directories without ":"
     # in the name, is interperted as a server otherwise.
