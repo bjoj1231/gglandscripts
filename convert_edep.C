@@ -1,19 +1,25 @@
-#define h102_cxx
-#include "h102.h"
+/* To run standalone:
+ g++ -o convert_edep convert_edep.C `root-config --cflags --glibs`
+ ./convert_edep FILENAME.root
+ */
+
+#define convert_edep_cxx
+#include "convert_edep.h"
 #include <TH2.h>
 #include <TStyle.h>
 #include <TCanvas.h>
 #include <math.h>
+#include <valarray>
 
 using namespace std;
 
 // This code is for XB only
 
-void h102::Loop()
+void convert_edep::Loop()
 {
 //   In a ROOT session, you can do:
-//      root> .L h102.C
-//      root> h102 t
+//      root> .L convert_edep.C
+//      root> convert_edep t
 //      root> t.GetEntry(12); // Fill t data members with entry number 12
 //      root> t.Show();       // Show values of entry 12
 //      root> t.Show(16);     // Read and show values of entry 16
@@ -68,7 +74,7 @@ void h102::Loop()
 
       // Check energy deposited vs primary energy
       bool goodEvent = true;
-      for (int i=0; i<gunn; i++){
+      for (UInt_t i=0; i<gunn; i++){
 	goodEvent = gunedepXB[i]/gunT[i] > 0.9;
 	if (!goodEvent) break;
       }
@@ -81,13 +87,16 @@ void h102::Loop()
 	  double theta;
 	  double phi;
 	  
-	for(int i=0; i<gunn; i++){
+	for(UInt_t i=0; i<gunn; i++){
 	  //gunpx is the x-coordinate, gunpy = y etc. r as in spherical coordinates.
 	  double r = sqrt(pow(gunpx[i],2)+pow(gunpy[i],2)+pow(gunpz[i],2));
 
 	  // Write gun energies to gun-file
-	  //fprintf(gunTFile,"%f ",gunT[i]);             // Energy in lab frame
-	  fprintf(gunTFile, "%f ",gunpreboostT[i]);     // Energy in beam frame
+	   fprintf(gunTFile,"%f ",gunT[i]);
+	  // Write cos(theta) to gun-file
+	  // fprintf(gunTFile,"%f ",gunpz[i]/r);
+	  // Write cos(phi) to gun-file: Added 2019-03-08
+	  // fprintf(gunTFile, "%f ", gunpx[i]/sqrt(pow(r,2)-pow(gunpz[i],2)));
 
 	  // Writes angle theta to gun-file. Added 2019-03-15
 	  if (gunpz[i] >= 0) {
@@ -123,7 +132,7 @@ void h102::Loop()
 	fprintf(depEFile,"%f \n",energyArray.sum());
 
 	// Create output data array
-	for(int i = 0; i < XBn; i++){
+	for(UInt_t i = 0; i < XBn; i++){
 	  crystalEnergies[XBi[i]-1] = crystalEnergies[XBi[i]-1] + XBe[i];
 	}
 	
@@ -146,3 +155,17 @@ void h102::Loop()
    fclose(dataFile);
    fclose(depEFile);
 }
+
+#ifndef __CINT__
+int main(int argc, char **argv)
+{
+  int start_i = 1;
+
+  for (int i = start_i; i < argc; i++)
+    {
+      convert_edep conv(argv[i]);
+
+      conv.Loop();
+    }
+}
+#endif
