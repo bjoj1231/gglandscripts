@@ -99,26 +99,15 @@ void convert_edep::Loop()
 	  // fprintf(gunTFile, "%f ", gunpx[i]/sqrt(pow(r,2)-pow(gunpz[i],2)));
 
 	  // Writes angle theta to gun-file. Added 2019-03-15
-	  if (gunpz[i] >= 0) {
-	    theta = acos(gunpz[i] / r);
-	  } else {
-	    theta = pi/2 + acos(sqrt(1 - pow(gunpz[i],2)/pow(r,2)));
-	  }
+	  theta = acos(gunpz[i] / r);
+
 	  fprintf(gunTFile, "%f ", theta);
 
 	  // Writes angle phi to gun-file. Added 2019-03-15
-	  if (gunpx[i] >= 0 && gunpy[i] >= 0) {
-	    phi = asin(gunpy[i] / sqrt(pow(r,2) - pow(gunpz[i],2)));
-	  } else if (gunpx[i] < 0 && gunpy[i] >= 0) {
-	    phi = pi/2 + acos(gunpy[i] / sqrt(pow(r,2) - pow(gunpz[i],2)));
-	  } else if (gunpx[i] < 0 && gunpy[i] < 0) {
-	    phi = pi - asin(gunpy[i] / sqrt(pow(r,2) - pow(gunpz[i],2)));
-	  } else {
-	    phi = 2*pi + asin(gunpy[i] / sqrt(pow(r,2) - pow(gunpz[i],2)));
-	  }
+	  phi = atan2(gunpy[i], gunpx[i]);
+
 	  fprintf(gunTFile, "%f ", phi);
 
-	  
 	}
 	// Pad with zeros if gunn < maxgunn
 	for(int i=gunn; i<maxgunn; i++){
